@@ -8,19 +8,21 @@
             <el-input v-model="form.username"></el-input>
           </el-form-item>
           <el-form-item label="密码">
-            <el-input v-model="form.password"></el-input>
+            <el-input type="password" v-model="form.password"></el-input>
           </el-form-item>
         </el-form>
       </div>
       <div class="login-action">
-        <el-button type="primary" @click="handleLogin()">登录</el-button>
-        <el-button size="small" @click="handleRegister()">注册</el-button>
+        <el-button type="primary" v-loading="loginLoading" @click="handleLogin()">登录</el-button>
+        <el-button size="small" v-loading="registerLoading" @click="handleRegister()">注册</el-button>
       </div>
     </el-card>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'Login',
   data() {
@@ -28,15 +30,37 @@ export default {
       form: {
         username: '',
         password: ''
-      }
+      },
+      registerLoading: false,
+      loginLoading: false,
     }
   },
   methods: {
-    handleRegister() {
-
+    ...mapActions({
+      register: 'register',
+      login: 'login',
+    }),
+    async handleRegister() {
+      this.registerLoading = true
+      try {
+        await this.register(this.form)
+        this.$message.success('注册成功')
+        this.$router.push('/')
+      } catch (err) {
+        this.$message.error(err.data.msg)
+      }
+      this.registerLoading = false
     },
-    handleLogin() {
-
+    async handleLogin() {
+      this.loginLoading = true
+      try {
+        await this.login(this.form)
+        this.$message.success('登录成功')
+        this.$router.push('/')
+      } catch (err) {
+        this.$message.error(err.data.msg)
+      }
+      this.loginLoading = false
     }
   }
 }
