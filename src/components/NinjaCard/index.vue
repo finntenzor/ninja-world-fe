@@ -3,7 +3,10 @@
     <div class="ninja-card">
       <div class="ninja-card-avatar-container">
         <img class="ninja-card-avatar" :src="avatarSrc" alt="头像">
-        <p class="ninja-card-name">{{ ninja.name }}</p>
+        <p class="ninja-card-name" :style="{ color: rarityColor }">
+          <span >{{ ninja.name }}</span>
+          <span class="ninja-card-rarity">{{ ninja.rarity | rarityToReadable }}</span>
+        </p>
       </div>
       <div class="ninja-card-infos">
         <ul class="ninja-card-attrs">
@@ -53,6 +56,20 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'NinjaCard',
+  // 过滤器，有兴趣自查
+  filters: {
+    rarityToReadable(val) {
+      // 1代表N，2代表R，3代表SR，4代表SSR，5代表UR
+      const map = {
+        1: 'N',
+        2: 'R',
+        3: 'SR',
+        4: 'SSR',
+        5: 'UR'
+      }
+      return map[val] || '?'
+    }
+  },
   props: {
     ninja: Object
   },
@@ -65,6 +82,19 @@ export default {
   },
   created() {
     this.avatarSrc = avatars[parseInt(Math.random() * avatars.length)]
+  },
+  computed: {
+    rarityColor() {
+      // 1代表N，2代表R，3代表SR，4代表SSR，5代表UR
+      const map = {
+        1: '#000000',
+        2: '#ea1e63',
+        3: '#4cb050',
+        4: '#1976d3',
+        5: '#9c28b1'
+      }
+      return map[this.ninja.rarity] || '?'
+    }
   },
   methods: {
     ...mapActions({
@@ -124,6 +154,10 @@ $length: 150px;
   // 等比例缩放以居中
   width: $length * (246 / 292);
   text-align: center;
+  font-weight: 900;
+}
+.ninja-card-rarity {
+  margin-left: 10px;
 }
 
 .ninja-card-attr {
