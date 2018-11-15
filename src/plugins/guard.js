@@ -3,7 +3,7 @@ import router from '@/router'
 
 router.beforeEach(async(to, from, next) => {
   if (!store.getters.initOver) {
-    await store.dispatch('getLoginInfo')
+    await store.dispatch('init')
   }
   if (to.path === '/login') {
     next()

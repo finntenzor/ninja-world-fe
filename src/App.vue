@@ -10,17 +10,9 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'App',
-  created() {
-    this.init()
-  },
   computed: {
     ...mapGetters({
       initOver: 'initOver',
-    })
-  },
-  methods: {
-    ...mapActions({
-      init: 'init'
     })
   }
 }

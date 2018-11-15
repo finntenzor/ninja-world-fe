@@ -47,11 +47,15 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async init({ dispatch, commit }, payload) {
+    async init({ dispatch, commit }) {
       const tasks = ['getLoginInfo', 'getNinjaBoard', 'getNinjaList', 'getTaskList', 'getBossList']
       const promises = tasks.map(taskName => dispatch(taskName))
       const initPromise = Promise.all(promises)
-      const results = await initPromise
+      let results = []
+      try {
+        results = await initPromise
+      } catch (err) {
+      }
       commit('setInitOver', true)
       return results
     },
