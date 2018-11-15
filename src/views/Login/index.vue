@@ -39,11 +39,13 @@ export default {
     ...mapActions({
       register: 'register',
       login: 'login',
+      init: 'init'
     }),
     async handleRegister() {
       this.registerLoading = true
       try {
         await this.register(this.form)
+        await this.init()
         this.$message.success('注册成功')
         this.$router.push('/')
       } catch (err) {
@@ -55,6 +57,7 @@ export default {
       this.loginLoading = true
       try {
         await this.login(this.form)
+        await this.init()
         this.$message.success('登录成功')
         this.$router.push('/')
       } catch (err) {
