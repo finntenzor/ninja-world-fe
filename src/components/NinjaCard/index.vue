@@ -44,9 +44,6 @@ export default {
 </script>
 
 <style>
-.ninja-card-container {
-  display: inline-flex;
-}
 .ninja-card {
   display: flex;
 }
