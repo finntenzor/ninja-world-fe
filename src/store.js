@@ -8,12 +8,20 @@ export default new Vuex.Store({
   state: {
     initOver: false,
     isLogin: false,
-    userInfo: null
+    userInfo: null,
+    ninjaBoard: [],
+    ninjaList: [],
+    taskList: [],
+    bossList: []
   },
   getters: {
     initOver: state => state.initOver,
     isLogin: state => state.isLogin,
     userInfo: state => state.userInfo,
+    ninjaBoard: state => state.ninjaBoard,
+    ninjaList: state => state.ninjaList,
+    taskList: state => state.taskList,
+    bossList: state => state.bossList,
   },
   mutations: {
     setIsLogin(state, value) {
@@ -25,10 +33,22 @@ export default new Vuex.Store({
     setUserInfo(state, value) {
       state.userInfo = value
     },
+    setNinjaBoard(state, value) {
+      state.ninjaBoard = value
+    },
+    setNinjaList(state, value) {
+      state.ninjaList = value
+    },
+    setTaskList(state, value) {
+      state.taskList = value
+    },
+    setBossList(state, value) {
+      state.bossList = value
+    }
   },
   actions: {
     async init({ dispatch, commit }, payload) {
-      const tasks = ['getLoginInfo']
+      const tasks = ['getLoginInfo', 'getNinjaBoard', 'getNinjaList', 'getTaskList', 'getBossList']
       const promises = tasks.map(taskName => dispatch(taskName))
       const initPromise = Promise.all(promises)
       const results = await initPromise
@@ -52,7 +72,27 @@ export default new Vuex.Store({
     },
     async logout() {
       await axios.post('/api/v1/auth/logout')
-      await dispatch('getLoginInfo')
+      location.reload()
+    },
+    async getNinjaBoard({ commit }) {
+      const board = await axios.get('/api/v1/ninja/get_board')
+      commit('setNinjaBoard', board)
+      return board
+    },
+    async getNinjaList({ commit }) {
+      const ninjaList = await axios.get('/api/v1/ninja/get_my_ninjas')
+      commit('setNinjaList', ninjaList)
+      return ninjaList
+    },
+    async getTaskList({ commit }) {
+      const taskList = await axios.get('/api/v1/task/get_all_task')
+      commit('setTaskList', taskList)
+      return taskList
+    },
+    async getBossList({ commit }) {
+      const bossList = await axios.get('/api/v1/boss/get_all_boss')
+      commit('setBossList', bossList)
+      return bossList
     }
   }
 })
