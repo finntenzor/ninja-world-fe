@@ -4,8 +4,13 @@
     <el-container>
       <el-header class="home-header">Header</el-header>
       <el-main class="home-main">
-        <div class="home-ninja-container" v-for="ninja in ninjaList" :key="ninja.id">
-          <ninja-card class="home-ninja-card" :ninja="ninja"></ninja-card>
+        <div class="home-ninja-container">
+          <ninja-card
+            v-for="ninja in ninjaList"
+            :key="ninja.id"
+            :ninja="ninja"
+            class="home-ninja-card"
+          ></ninja-card>
         </div>
       </el-main>
       <el-footer class="home-footer">Footer</el-footer>
@@ -45,6 +50,10 @@ export default {
 }
 .home-main {
   background-color: #e9eef3;
+}
+.home-ninja-container {
+  display: flex;
+  flex-wrap: wrap;
 }
 .home-ninja-card {
   margin: 10px;

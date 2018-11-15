@@ -83,6 +83,16 @@ export default new Vuex.Store({
       commit('setNinjaBoard', board)
       return board
     },
+    async cureNinja({ dispatch }, id) {
+      const msg = await axios.post('/api/v1/ninja/cure', { ninja_id: id })
+      await dispatch('getNinjaList')
+      return msg
+    },
+    async fireNinja({ dispatch }, id) {
+      const msg = await axios.post('/api/v1/ninja/fire', { ninja_id: id })
+      await dispatch('getNinjaList')
+      return msg
+    },
     async getNinjaList({ commit }) {
       const ninjaList = await axios.get('/api/v1/ninja/get_my_ninjas')
       commit('setNinjaList', ninjaList)
