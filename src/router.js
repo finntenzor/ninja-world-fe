@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home'
+import Ninjas from './views/Ninjas'
+import NinjasAlive from './views/Ninjas/Alive'
+import NinjasDead from './views/Ninjas/Dead'
 import Login from './views/Login'
 
 Vue.use(Router)
@@ -8,9 +10,21 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: Home
+      path: '/ninjas',
+      name: 'ninjas',
+      component: Ninjas,
+      children: [
+        {
+          path: 'alive',
+          name: 'ninjasAlive',
+          component: NinjasAlive
+        },
+        {
+          path: 'dead',
+          name: 'ninjasDead',
+          component: NinjasDead
+        }
+      ]
     },
     {
       path: '/login',

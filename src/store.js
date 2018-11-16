@@ -20,6 +20,8 @@ export default new Vuex.Store({
     userInfo: state => state.userInfo,
     ninjaBoard: state => state.ninjaBoard,
     ninjaList: state => state.ninjaList,
+    aliveNinjaList: state => state.ninjaList.filter(ninja => ninja.hp > 0),
+    deadNinjaList: state => state.ninjaList.filter(ninja => ninja.hp <= 0),
     taskList: state => state.taskList,
     bossList: state => state.bossList,
   },

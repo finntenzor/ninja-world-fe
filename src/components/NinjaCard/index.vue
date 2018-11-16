@@ -8,7 +8,7 @@
           <span class="ninja-card-rarity">{{ ninja.rarity | rarityToReadable }}</span>
         </p>
       </div>
-      <div class="ninja-card-infos">
+      <div class="ninja-card-infos" v-if="ninja.hp > 0">
         <ul class="ninja-card-attrs">
           <li class="ninja-card-attr attr-atk">
             <img class="ninja-card-attr-icon" src="@/assets/icons/sword.png" alt="攻击力">
