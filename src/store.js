@@ -85,6 +85,16 @@ export default new Vuex.Store({
       commit('setNinjaBoard', board)
       return board
     },
+    async hireNinja({ dispatch }, rarity) {
+      const data = await axios.post('/api/v1/ninja/hire', { rarity })
+      await dispatch('getNinjaList')
+      return data
+    },
+    async getNinjaList({ commit }) {
+      const ninjaList = await axios.get('/api/v1/ninja/get_my_ninjas')
+      commit('setNinjaList', ninjaList)
+      return ninjaList
+    },
     async cureNinja({ dispatch }, id) {
       const msg = await axios.post('/api/v1/ninja/cure', { ninja_id: id })
       await dispatch('getNinjaList')
@@ -94,11 +104,6 @@ export default new Vuex.Store({
       const msg = await axios.post('/api/v1/ninja/fire', { ninja_id: id })
       await dispatch('getNinjaList')
       return msg
-    },
-    async getNinjaList({ commit }) {
-      const ninjaList = await axios.get('/api/v1/ninja/get_my_ninjas')
-      commit('setNinjaList', ninjaList)
-      return ninjaList
     },
     async getTaskList({ commit }) {
       const taskList = await axios.get('/api/v1/task/get_all_task')

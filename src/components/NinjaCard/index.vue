@@ -109,7 +109,7 @@ export default {
         4: '#1976d3',
         5: '#9c28b1'
       }
-      return map[this.ninja.rarity] || '?'
+      return map[this.ninja.rarity] || 'grey'
     }
   },
   methods: {

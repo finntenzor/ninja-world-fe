@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Ninjas from './views/Ninjas'
+import NinjasBoard from './views/Ninjas/Board'
 import NinjasAlive from './views/Ninjas/Alive'
 import NinjasDead from './views/Ninjas/Dead'
 import Login from './views/Login'
@@ -14,6 +15,11 @@ export default new Router({
       name: 'ninjas',
       component: Ninjas,
       children: [
+        {
+          path: 'board',
+          name: 'ninjasBoard',
+          component: NinjasBoard
+        },
         {
           path: 'alive',
           name: 'ninjasAlive',
