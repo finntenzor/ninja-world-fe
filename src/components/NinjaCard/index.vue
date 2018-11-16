@@ -2,12 +2,7 @@
   <el-card class="ninja-card-container">
     <div class="ninja-card">
       <div class="ninja-card-avatar-container">
-        <div class="ninja-card-avatar" :style="{
-          'background': `${rarityColor}`,
-          '-webkit-mask': `url('${avatarSrc}') no-repeat`,
-          '-webkit-mask-repeat': `none`,
-          '-webkit-mask-size': `100% auto`
-        }" alt="头像"></div>
+        <ninja-avatar :color="rarityColor" :id="ninja.id"></ninja-avatar>
         <p class="ninja-card-name" :style="{ color: rarityColor }">
           <span >{{ ninja.name }}</span>
           <span class="ninja-card-rarity">{{ ninja.rarity | rarityToReadable }}</span>
@@ -72,25 +67,24 @@
 </template>
 
 <script>
-import avatars from './avatars'
 import { mapActions } from 'vuex'
 import rarityMixin from '@/mixins/rarity'
+import NinjaAvatar from '@/components/NinjaAvatar'
 
 export default {
   name: 'NinjaCard',
   mixins: [rarityMixin],
+  components: {
+    NinjaAvatar
+  },
   props: {
     ninja: Object
   },
   data() {
     return {
-      avatarSrc: '',
       cureLoading: false,
       fireLoading: false
     }
-  },
-  created() {
-    this.avatarSrc = avatars[parseInt(Math.random() * avatars.length)]
   },
   computed: {
     rarity() {

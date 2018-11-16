@@ -1,6 +1,6 @@
 <template>
   <el-card class="ninjas-board-card">
-    <img class="ninjas-board-card-img" :src="src" alt="">
+    <ninja-avatar class="ninjas-board-card-avatar" :color="rarityColor" :id="0"></ninja-avatar>
     <p>稀有度：<span :style="{ color: rarityColor }">{{ item.rarity | rarityToReadable }}</span></p>
     <p>价格：{{ item.cost }}</p>
     <el-button class="ninjas-board-card-hire" v-loading="hireLoading" type="primary" @click="handleHire()">雇佣</el-button>
@@ -10,11 +10,14 @@
 <script>
 import { mapActions } from 'vuex'
 import rarityMixin from '@/mixins/rarity'
-import imgs from './imgs'
+import NinjaAvatar from '@/components/NinjaAvatar'
 
 export default {
   name: 'NinjasBoardCard',
   mixins: [rarityMixin],
+  components: {
+    NinjaAvatar
+  },
   props: {
     item: Object
   },
@@ -26,9 +29,6 @@ export default {
   computed: {
     rarity() {
       return this.item.rarity
-    },
-    src() {
-      return imgs[this.rarity] || imgs[1]
     }
   },
   methods: {
@@ -56,7 +56,7 @@ $length: 160px;
 .ninjas-board-card {
   text-align: center;
 }
-.ninjas-board-card-img {
+.ninjas-board-card-avatar {
   margin-left: $left-margin * ($length / $total-width);
   width: 160px;
 }
