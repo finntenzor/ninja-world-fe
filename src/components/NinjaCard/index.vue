@@ -1,8 +1,11 @@
 <template>
   <el-card class="ninja-card-container">
     <div class="ninja-card">
-      <div class="ninja-card-avatar-container">
-        <ninja-avatar :color="rarityColor" :id="ninja.id"></ninja-avatar>
+      <div class="ninja-card-basic-info">
+        <div class="ninja-card-avatar-container">
+          <ninja-avatar :color="rarityColor" :id="ninja.id"></ninja-avatar>
+          <img v-if="ninja === firstNinja" class="ninja-card-first" src="@/assets/first.png" alt="首发">
+        </div>
         <p class="ninja-card-name" :style="{ color: rarityColor }">
           <span >{{ ninja.name }}</span>
           <span class="ninja-card-rarity">{{ ninja.rarity | rarityToReadable }}</span>
@@ -55,6 +58,11 @@
             class="ninja-card-button"
             >治疗</el-button>
           <el-button
+            type="success"
+            @click="handleSet()"
+            class="ninja-card-button"
+            >首发</el-button>
+          <el-button
             v-loading="fireLoading"
             type="danger"
             @click="handleFire()"
@@ -67,7 +75,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 import rarityMixin from '@/mixins/rarity'
 import NinjaAvatar from '@/components/NinjaAvatar'
 
@@ -87,6 +95,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      firstNinja: 'firstNinja'
+    }),
     rarity() {
       return this.ninja.rarity
     }
@@ -95,6 +106,9 @@ export default {
     ...mapActions({
       cureNinja: 'cureNinja',
       fireNinja: 'fireNinja',
+    }),
+    ...mapMutations({
+      setFirstNinja: 'setFirstNinja'
     }),
     async handleCure() {
       this.cureLoading = true
@@ -129,6 +143,9 @@ export default {
       } catch (err) {
         return false
       }
+    },
+    handleSet() {
+      this.setFirstNinja(this.ninja)
     }
   }
 }
@@ -136,8 +153,23 @@ export default {
 
 <style lang="scss">
 $length: 150px;
+.el-card.ninja-card-container {
+  overflow: visible;
+}
 .ninja-card {
   display: flex;
+}
+.ninja-card-avatar-container {
+  margin-top: 10px;;
+  position: relative;
+}
+.ninja-card-first {
+  position: absolute;
+  width: 120px;
+  height: auto;
+  top: -35px;
+  left: -45px;
+  transform: rotate(-35deg);
 }
 .ninja-card-avatar {
   display: block;

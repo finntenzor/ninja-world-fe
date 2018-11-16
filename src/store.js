@@ -12,7 +12,8 @@ export default new Vuex.Store({
     ninjaBoard: [],
     ninjaList: [],
     taskList: [],
-    bossList: []
+    bossList: [],
+    firstNinja: null,
   },
   getters: {
     initOver: state => state.initOver,
@@ -24,6 +25,7 @@ export default new Vuex.Store({
     deadNinjaList: state => state.ninjaList.filter(ninja => ninja.hp <= 0),
     taskList: state => state.taskList,
     bossList: state => state.bossList,
+    firstNinja: state => state.firstNinja,
   },
   mutations: {
     setIsLogin(state, value) {
@@ -46,6 +48,9 @@ export default new Vuex.Store({
     },
     setBossList(state, value) {
       state.bossList = value
+    },
+    setFirstNinja(state, value) {
+      state.firstNinja = value
     }
   },
   actions: {
