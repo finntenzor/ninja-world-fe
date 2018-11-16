@@ -88,6 +88,7 @@ export default new Vuex.Store({
     async hireNinja({ dispatch }, rarity) {
       const data = await axios.post('/api/v1/ninja/hire', { rarity })
       await dispatch('getNinjaList')
+      await dispatch('getLoginInfo')
       return data
     },
     async getNinjaList({ commit }) {
@@ -98,11 +99,13 @@ export default new Vuex.Store({
     async cureNinja({ dispatch }, id) {
       const msg = await axios.post('/api/v1/ninja/cure', { ninja_id: id })
       await dispatch('getNinjaList')
+      await dispatch('getLoginInfo')
       return msg
     },
     async fireNinja({ dispatch }, id) {
       const msg = await axios.post('/api/v1/ninja/fire', { ninja_id: id })
       await dispatch('getNinjaList')
+      await dispatch('getLoginInfo')
       return msg
     },
     async getTaskList({ commit }) {
