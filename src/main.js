@@ -5,6 +5,7 @@ import store from './store'
 import './plugins/axios'
 import './plugins/elementui'
 import './plugins/guard'
+import './plugins/reporter'
 
 Vue.config.productionTip = false
 

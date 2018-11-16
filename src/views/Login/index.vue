@@ -49,7 +49,7 @@ export default {
         this.$message.success('注册成功')
         this.$router.push('/')
       } catch (err) {
-        this.$message.error(err.data.msg)
+        this.report(err)
       }
       this.registerLoading = false
     },
@@ -61,7 +61,7 @@ export default {
         this.$message.success('登录成功')
         this.$router.push('/')
       } catch (err) {
-        this.$message.error(err.data.msg)
+        this.report(err)
       }
       this.loginLoading = false
     }
