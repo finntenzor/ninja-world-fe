@@ -36,18 +36,7 @@
             </li>
           </ul>
           <ul class="ninja-card-skills">
-            <li
-              v-for="(skill, i) in ninja.skills"
-              :key="i">
-              <el-popover
-                placement="top-start"
-                :title="skill.name + ' LV' + skill.level"
-                width="200"
-                trigger="hover"
-                :content="skill.description">
-                <el-tag class="ninja-card-skill" slot="reference">{{ skill.name }} LV{{ skill.level }}</el-tag>
-              </el-popover>
-            </li>
+            <skill-tag v-for="(skill, i) in ninja.skills" :key="i" :skill="skill"></skill-tag>
           </ul>
         </div>
         <div class="ninja-card-actions">
@@ -78,12 +67,14 @@
 import { mapActions, mapMutations, mapGetters } from 'vuex'
 import rarityMixin from '@/mixins/rarity'
 import NinjaAvatar from '@/components/NinjaAvatar'
+import SkillTag from '@/components/SkillTag'
 
 export default {
   name: 'NinjaCard',
   mixins: [rarityMixin],
   components: {
-    NinjaAvatar
+    NinjaAvatar,
+    SkillTag
   },
   props: {
     ninja: Object

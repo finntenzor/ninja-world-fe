@@ -10,19 +10,23 @@
       <el-main class="main-layout-main">
         <router-view></router-view>
       </el-main>
-      <el-footer class="main-layout-footer">Footer</el-footer>
+      <el-footer class="main-layout-footer">
+        <first-ninja-info></first-ninja-info>
+      </el-footer>
     </el-container>
   </el-container>
 </template>
 
 <script>
 import UserInfo from '@/components/UserInfo'
+import FirstNinjaInfo from '@/components/FirstNinjaInfo'
 import NavMenu from './NavMenu'
 
 export default {
   name: 'MainLayout',
   components: {
     UserInfo,
+    FirstNinjaInfo,
     NavMenu
   }
 }
