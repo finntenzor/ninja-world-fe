@@ -8,29 +8,45 @@
           <span class="ninja-card-rarity">{{ ninja.rarity | rarityToReadable }}</span>
         </p>
       </div>
-      <div class="ninja-card-infos" v-if="ninja.hp > 0">
-        <ul class="ninja-card-attrs">
-          <li class="ninja-card-attr attr-atk">
-            <img class="ninja-card-attr-icon" src="@/assets/icons/sword.png" alt="攻击力">
-            <p class="ninja-card-attr-value">{{ ninja.atk }}</p>
-          </li>
-          <li class="ninja-card-attr attr-def">
-            <img class="ninja-card-attr-icon" src="@/assets/icons/shield.png" alt="防御力">
-            <p class="ninja-card-attr-value">{{ ninja.def }}</p>
-          </li>
-          <li class="ninja-card-attr attr-def">
-            <img class="ninja-card-attr-icon" src="@/assets/icons/heart.png" alt="体力">
-            <div class="ninja-card-attr-value attr-hp">
-              <p>{{ ninja.hp }}/{{ ninja.maxhp }}</p>
-              <el-progress
-                :stroke-width="12"
-                :show-text="false"
-                :percentage="ninja.hp / ninja.maxhp * 100"
-                status="exception"
-              ></el-progress>
-            </div>
-          </li>
-        </ul>
+      <div class="ninja-card-details" v-if="ninja.hp > 0">
+        <div class="ninja-card-infos">
+          <ul class="ninja-card-attrs">
+            <li class="ninja-card-attr attr-atk">
+              <img class="ninja-card-attr-icon" src="@/assets/icons/sword.png" alt="攻击力">
+              <p class="ninja-card-attr-value">{{ ninja.atk }}</p>
+            </li>
+            <li class="ninja-card-attr attr-def">
+              <img class="ninja-card-attr-icon" src="@/assets/icons/shield.png" alt="防御力">
+              <p class="ninja-card-attr-value">{{ ninja.def }}</p>
+            </li>
+            <li class="ninja-card-attr attr-def">
+              <img class="ninja-card-attr-icon" src="@/assets/icons/heart.png" alt="体力">
+              <div class="ninja-card-attr-value attr-hp">
+                <p>{{ ninja.hp }}/{{ ninja.maxhp }}</p>
+                <el-progress
+                  :stroke-width="12"
+                  :show-text="false"
+                  :percentage="ninja.hp / ninja.maxhp * 100"
+                  status="exception"
+                ></el-progress>
+              </div>
+            </li>
+          </ul>
+          <ul class="ninja-card-skills">
+            <li
+              v-for="(skill, i) in ninja.skills"
+              :key="i">
+              <el-popover
+                placement="top-start"
+                :title="skill.name + ' LV' + skill.level"
+                width="200"
+                trigger="hover"
+                :content="skill.description">
+                <el-tag class="ninja-card-skill" slot="reference">{{ skill.name }} LV{{ skill.level }}</el-tag>
+              </el-popover>
+            </li>
+          </ul>
+        </div>
         <div class="ninja-card-actions">
           <el-button
             v-loading="cureLoading"
@@ -160,6 +176,9 @@ $length: 150px;
   margin-left: 10px;
 }
 
+.ninja-card-infos {
+  display: flex;
+}
 .ninja-card-attr {
   display: flex;
   margin: 10px;
@@ -180,5 +199,15 @@ $length: 150px;
   &.attr-hp {
     width: 100px;
   }
+}
+
+.ninja-card-skills {
+  display: flex;
+  width: 210px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.ninja-card-skill {
+  margin: 5px;
 }
 </style>
