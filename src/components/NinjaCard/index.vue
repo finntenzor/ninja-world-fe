@@ -2,7 +2,12 @@
   <el-card class="ninja-card-container">
     <div class="ninja-card">
       <div class="ninja-card-avatar-container">
-        <img class="ninja-card-avatar" :src="avatarSrc" alt="头像">
+        <div class="ninja-card-avatar" :style="{
+          'background': `${rarityColor}`,
+          '-webkit-mask': `url('${avatarSrc}') no-repeat`,
+          '-webkit-mask-repeat': `none`,
+          '-webkit-mask-size': `100% auto`
+        }" alt="头像"></div>
         <p class="ninja-card-name" :style="{ color: rarityColor }">
           <span >{{ ninja.name }}</span>
           <span class="ninja-card-rarity">{{ ninja.rarity | rarityToReadable }}</span>
@@ -144,7 +149,6 @@ $length: 150px;
   display: block;
   width: $length;
   height: $length;
-  object-fit: contain;
 }
 .ninja-card-name {
   // 等比例缩放以居中
