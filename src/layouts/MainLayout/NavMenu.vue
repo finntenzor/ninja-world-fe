@@ -12,8 +12,8 @@
       <el-menu-item index="/ninjas/alive">我的</el-menu-item>
       <el-menu-item index="/ninjas/dead">墓地</el-menu-item>
     </el-submenu>
-    <el-menu-item index="/task">任务</el-menu-item>
-    <el-menu-item index="/boss">BOSS</el-menu-item>
+    <el-menu-item index="/tasks/index">任务</el-menu-item>
+    <el-menu-item index="/bosses/index">BOSS</el-menu-item>
   </el-menu>
 </template>
 
