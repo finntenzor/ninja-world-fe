@@ -29,6 +29,7 @@
           @click="handleFight()"
           >挑战</el-button>
         <b v-if="!setFirstNinja" class="boss-card-tips">请先设置首发忍者</b>
+        <b v-if="setFirstNinja && !canDamage" class="boss-card-tips">无法此BOSS造成有效伤害</b>
       </div>
     </el-card>
   </div>
@@ -84,6 +85,9 @@ export default {
     },
     canFight() {
       return this.setFirstNinja && this.now > this.boss.last_kill + this.boss.cycle_time
+    },
+    canDamage() {
+      return this.setFirstNinja && this.firstNinja.atk > this.boss.def
     }
   },
   methods: {
@@ -97,9 +101,11 @@ export default {
           ninja_id: this.firstNinja.id,
           boss_id: this.boss.id
         })
-        for (const item of data) {
-          alert(item.message)
-        }
+        this.$emit('fight', {
+          ninja: this.firstNinja,
+          boss: this.boss,
+          logs: data
+        })
       } catch (err) {
         this.report(err)
       }

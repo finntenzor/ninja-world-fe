@@ -116,9 +116,10 @@ export default new Vuex.Store({
       await dispatch('getLoginInfo')
       return data
     },
-    async getNinjaList({ commit }) {
+    async getNinjaList({ commit, dispatch }) {
       const ninjaList = await axios.get('/api/v1/ninja/get_my_ninjas')
       commit('setNinjaList', ninjaList)
+      dispatch('refreshFirstNina')
       return ninjaList
     },
     async cureNinja({ dispatch }, id) {
@@ -156,6 +157,11 @@ export default new Vuex.Store({
       await dispatch('getNinjaList')
       await dispatch('getLoginInfo')
       return data
+    },
+    refreshFirstNina({ getters, commit }) {
+      const id = getters.firstNinja.id
+      const ninja = getters.ninjaList.find(item => item.id === id)
+      commit('setFirstNinja', ninja || null)
     }
   }
 })
