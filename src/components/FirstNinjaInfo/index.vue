@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import rarityMixin from '@/mixins/rarity'
 import SkillTag from '@/components/SkillTag'
 
@@ -51,6 +51,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      cureNinja: 'cureNinja'
+    }),
     async handleCure() {
       this.cureLoading = true
       try {
