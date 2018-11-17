@@ -149,6 +149,13 @@ export default new Vuex.Store({
       const bossList = await axios.get('/api/v1/boss/get_all_boss')
       commit('setBossList', bossList)
       return bossList
+    },
+    async fightBoss({ dispatch }, { ninja_id, boss_id }) {
+      const data = await axios.post('/api/v1/boss/fight', { ninja_id, boss_id })
+      await dispatch('getBossList')
+      await dispatch('getNinjaList')
+      await dispatch('getLoginInfo')
+      return data
     }
   }
 })

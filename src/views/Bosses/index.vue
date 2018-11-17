@@ -1,6 +1,6 @@
 <template>
   <div class="bosses">
-    <boss-card v-for="boss in list" :key="boss.id" :boss="boss"></boss-card>
+    <boss-card class="bosses-boss-card" v-for="boss in list" :key="boss.id" :boss="boss"></boss-card>
   </div>
 </template>
 
@@ -28,5 +28,11 @@ export default {
 </script>
 
 <style>
-
+.bosses {
+  display: flex;
+  flex-wrap: wrap;
+}
+.bosses-boss-card {
+  margin: 10px;
+}
 </style>

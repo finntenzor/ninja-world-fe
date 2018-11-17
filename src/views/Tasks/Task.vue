@@ -43,7 +43,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { timePeriodToReadble } from './util'
+import { timePeriodToReadble } from '@/util'
 import TaskAttr from './TaskAttr'
 
 export default {
