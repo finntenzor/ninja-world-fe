@@ -12,6 +12,7 @@
       </el-main>
       <el-footer class="main-layout-footer">
         <first-ninja-info></first-ninja-info>
+        <ninja-switcher></ninja-switcher>
       </el-footer>
     </el-container>
   </el-container>
@@ -20,6 +21,7 @@
 <script>
 import UserInfo from '@/components/UserInfo'
 import FirstNinjaInfo from '@/components/FirstNinjaInfo'
+import NinjaSwitcher from '@/components/NinjaSwitcher'
 import NavMenu from './NavMenu'
 
 export default {
@@ -27,7 +29,8 @@ export default {
   components: {
     UserInfo,
     FirstNinjaInfo,
-    NavMenu
+    NavMenu,
+    NinjaSwitcher
   }
 }
 </script>
@@ -45,6 +48,11 @@ export default {
 .main-layout-header,
 .main-layout-footer {
   background-color: #b3c0d1;
+}
+.main-layout-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .main-layout-main {
   background-color: #e9eef3;
