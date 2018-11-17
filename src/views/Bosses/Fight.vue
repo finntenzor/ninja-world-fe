@@ -40,6 +40,10 @@
         </el-alert>
       </div>
     </div>
+    <audio v-show="false" ref="attackAudio" preload>
+      <source src="@/assets/audio/attack.mp3" type="audio/mpeg">
+      <source src="@/assets/audio/attack.ogg" type="audio/ogg">
+    </audio>
   </div>
 </template>
 
@@ -80,6 +84,7 @@ export default {
   },
   methods: {
     async start() {
+      const audio = this.$refs.attackAudio
       function wait(time) {
         return new Promise(resolve => {
           setTimeout(resolve, time)
@@ -94,6 +99,9 @@ export default {
           await wait((60 * 1000 / this.readSpeed))
           copy.message = item.message.substring(0, i + 1)
         }
+        audio.currentTime = 0
+        await audio.play()
+        await wait((60 * 1000 / this.readSpeed) * 10)
       }
     }
   }
