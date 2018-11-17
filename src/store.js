@@ -159,9 +159,13 @@ export default new Vuex.Store({
       return data
     },
     refreshFirstNina({ getters, commit }) {
-      const id = getters.firstNinja.id
-      const ninja = getters.ninjaList.find(item => item.id === id)
-      commit('setFirstNinja', ninja || null)
+      const origin = getters.firstNinja
+      if (origin) {
+        const ninja = getters.ninjaList.find(item => item.id === origin.id)
+        if (ninja) {
+          commit('setFirstNinja', ninja)
+        }
+      }
     }
   }
 })
