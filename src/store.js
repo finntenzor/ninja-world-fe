@@ -118,6 +118,13 @@ export default new Vuex.Store({
       commit('setTaskList', taskList)
       return taskList
     },
+    async executeTask({ dispatch }, { ninja_id, task_id }) {
+      const data = await axios.post('/api/v1/task/execute', { ninja_id, task_id })
+      await dispatch('getTaskList')
+      await dispatch('getNinjaList')
+      await dispatch('getLoginInfo')
+      return data
+    },
     async getBossList({ commit }) {
       const bossList = await axios.get('/api/v1/boss/get_all_boss')
       commit('setBossList', bossList)
