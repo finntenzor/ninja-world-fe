@@ -56,9 +56,7 @@ export default {
   },
   data() {
     return {
-      executeLoading: false,
-      nowDate: new Date(),
-      timer: null
+      executeLoading: false
     }
   },
   filters: {
@@ -66,13 +64,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      firstNinja: 'firstNinja'
+      firstNinja: 'firstNinja',
+      now: 'now',
+      nowDate: 'nowDate'
     }),
     setFirstNinja() {
       return this.firstNinja !== null
-    },
-    now() {
-      return parseInt(this.nowDate.getTime() / 1000)
     },
     lastExecute() {
       return this.task.last_execute || 0
@@ -112,13 +109,6 @@ export default {
       return parseInt(time / cycle * 100)
     }
   },
-  created() {
-    this.removeTimer()
-    this.timer = setInterval(this.refresh, 1000)
-  },
-  beforeDestroy() {
-    this.removeTimer()
-  },
   methods: {
     ...mapActions({
       executeTask: 'executeTask'
@@ -139,15 +129,6 @@ export default {
         this.report(err)
       }
       this.executeLoading = false
-    },
-    refresh() {
-      this.nowDate = new Date()
-    },
-    removeTimer() {
-      if (this.timer) {
-        clearInterval(this.timer)
-        this.timer = null
-      }
     }
   }
 }

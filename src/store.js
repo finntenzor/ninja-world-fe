@@ -14,6 +14,8 @@ export default new Vuex.Store({
     taskList: [],
     bossList: [],
     firstNinja: null,
+    nowTimer: null,
+    nowDate: new Date()
   },
   getters: {
     initOver: state => state.initOver,
@@ -26,6 +28,8 @@ export default new Vuex.Store({
     taskList: state => state.taskList,
     bossList: state => state.bossList,
     firstNinja: state => state.firstNinja,
+    nowDate: state => state.nowDate,
+    now: state => parseInt(state.nowDate.getTime() / 1000)
   },
   mutations: {
     setIsLogin(state, value) {
@@ -51,9 +55,25 @@ export default new Vuex.Store({
     },
     setFirstNinja(state, value) {
       state.firstNinja = value
+    },
+    setNowTimer(state, value) {
+      state.nowTimer = value
+    },
+    setNowDate(state, value) {
+      state.nowDate = value
     }
   },
   actions: {
+    startTimer({ state, commit }) {
+      function refresh() {
+        commit('setNowDate', new Date())
+      }
+      if (state.nowTimer) {
+        clearInterval(state.nowTimer)
+      }
+      const timer = setInterval(refresh, 1000)
+      commit('setNowTimer', timer)
+    },
     async init({ dispatch, commit }) {
       const tasks = ['getLoginInfo', 'getNinjaBoard', 'getNinjaList', 'getTaskList', 'getBossList']
       const promises = tasks.map(taskName => dispatch(taskName))

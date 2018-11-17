@@ -14,6 +14,14 @@ export default {
     ...mapGetters({
       initOver: 'initOver',
     })
+  },
+  created() {
+    this.startTimer()
+  },
+  methods: {
+    ...mapActions({
+      startTimer: 'startTimer'
+    })
   }
 }
 </script>
