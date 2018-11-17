@@ -1,11 +1,14 @@
 <template>
-  <div class="ninjas-dead">
+  <div class="ninjas-dead" v-if="deadNinjaList.length > 0">
     <ninja-card
       v-for="ninja in deadNinjaList"
       :key="ninja.id"
       :ninja="ninja"
       class="ninjas-dead-card"
     ></ninja-card>
+  </div>
+  <div class="ninjas-dead" v-else>
+    <p>这里空空如也</p>
   </div>
 </template>
 

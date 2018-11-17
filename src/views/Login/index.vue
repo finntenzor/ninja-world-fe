@@ -45,6 +45,7 @@ export default {
       this.registerLoading = true
       try {
         await this.register(this.form)
+        await this.login(this.form)
         await this.init()
         this.$message.success('注册成功')
         this.$router.push('/')

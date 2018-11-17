@@ -1,11 +1,14 @@
 <template>
-  <div class="ninjas-alive">
+  <div class="ninjas-alive" v-if="aliveNinjaList.length > 0">
     <ninja-card
       v-for="ninja in aliveNinjaList"
       :key="ninja.id"
       :ninja="ninja"
       class="ninjas-alive-card"
     ></ninja-card>
+  </div>
+  <div class="ninjas-alive" v-else>
+    <b>您还没有雇佣任何忍者，快去<router-link class="ninjas-alive-link" to="/ninjas/board">雇佣一个</router-link></b>
   </div>
 </template>
 
@@ -33,5 +36,9 @@ export default {
 }
 .ninjas-alive-card {
   margin: 10px;
+}
+.ninjas-alive-link {
+  color: red;
+  text-decoration: underline;
 }
 </style>
